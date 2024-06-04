@@ -6,7 +6,7 @@ function authJwt() {
     return expressJwt({
         secret,
         algorithms: ['HS256'],
-        isRevoked: isRevoked
+      
     }).unless({
         path: [
            {url: /\/public\/uploads(.*)/, methods: ['GET', 'OPTIONS']},
@@ -17,12 +17,7 @@ function authJwt() {
         ]
     })
 }
-async function isRevoked(req, payload, done){
-    if(!payload.isAdmin){
-        done(null, true);
-    }
-    done();
-}
+
 
 
 

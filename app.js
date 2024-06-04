@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const cors = require('cors');
 app.use(cors());
-app.options('*', cors);
+app.options('*', cors());
 require('dotenv/config');
 const authJwt = require('./helpers/jwt');
 const errorHandler = require('./helpers/error-handler');
@@ -20,11 +20,12 @@ const orderRouter = require('./routers/orderes');
 app.use(bodyParser.json());
 app.use(morgan('tiny')); 
 app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
+app.use(authJwt());
 app.use(`${api}/products`, productsRouter);
 app.use(`${api}/categories`, categoryRouter);
 app.use(`${api}/users`, userRouter);
 app.use(`${api}/orders`, orderRouter);
-app.use(authJwt);
+
 app.use(errorHandler);
 
 
